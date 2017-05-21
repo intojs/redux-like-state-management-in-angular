@@ -73,6 +73,3 @@ Now that we the service let's consume our state and hook everything up at the co
 We will inject our store and subscribe to the repos properties. The async pipe is really handy, making it possible to use the subscription directly at the template level.
 
 The interesting part is how to use the RxJs operators to query our store, just like a front end database.
-
-
---- code here ---

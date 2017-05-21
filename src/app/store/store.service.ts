@@ -1,6 +1,7 @@
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { Repos } from '../repos/shared/Repos';
+import { StoreEvent } from './store-event';
 
 export interface State {
   repos: Repos;
@@ -24,7 +25,7 @@ export class Store {
     return this.store$;
   }
 
-  dispatch(event): void {
+  dispatch(event: StoreEvent): void {
     this.store.next(event.getNewState(this.store.getValue()));
   }
 }

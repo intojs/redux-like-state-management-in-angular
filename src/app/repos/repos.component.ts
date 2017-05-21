@@ -11,6 +11,7 @@ import { Repo } from './shared/Repo';
     <button type="button" (click)="getRepos()">Get repos</button>
     <p *ngIf="isLoading$ | async">Repos are loading...</p>
     <p *ngIf="hasError$ | async">Oups, could not retrieve repos from the server</p>
+    <p *ngIf="(reposNumber$ | async) > 0">You have loaded {{reposNumber$ | async}} repos</p>
     <ul>
       <li *ngFor="let repo of repos$ | async">
         {{repo.name}} - {{repo.description}}
@@ -22,6 +23,7 @@ export class ReposComponent implements OnInit {
   repos$: Observable<Repo[]>;
   isLoading$: Observable<boolean>;
   hasError$: Observable<boolean>;
+  reposNumber$: Observable<number>;
 
   constructor(private store: Store, private reposService: ReposService) {
   }
@@ -35,6 +37,9 @@ export class ReposComponent implements OnInit {
 
     this.hasError$ = this.store.observe()
       .map((state: State) => state.repos.hasError);
+
+    this.reposNumber$ = this.store.observe()
+      .map((state: State) => state.repos.repos.length);
   }
 
   getRepos() {
